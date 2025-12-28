@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\VerifyController;
+use App\Models\Verification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -48,7 +49,8 @@ Route::middleware(['auth'])->group(function() {
 
         Route::get('/verify', [VerifyController::class, 'index'])->name('verify');
         Route::post('/verify', [VerifyController::class, 'store'])->name('verify.store');
-
+        Route::get('/verify/{uniq_id}', [VerifyController::class, 'show'])->name('verify.show');
+        Route::put('/verify/{uniq_id}', [VerifyController::class, 'update'])->name('verify.update');
 
         Route::middleware(['check_status'])->group(function(){
             Route::get('/customer', [CustomerController::class, 'index'])->name('customer');
