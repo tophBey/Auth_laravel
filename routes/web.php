@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\VerifyController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +18,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return redirect()->route('login');
 });
 
 
@@ -29,12 +31,30 @@ Route::middleware(['guest'])->group(function(){
 });
 
 
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
-Route::middleware(['auth', 'check_role:admin,staff'])->group(function() {
-    Route::get('/dashboard', [AuthController::class, 'dashboard']);
+Route::middleware(['auth'])->group(function() {
+
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+
+    Route::middleware(['check_role:admin,staff'])->group(function(){
+        Route::get('/dashboard', [AuthController::class, 'dashboard']);
+    });
+
+
+
+
+    Route::middleware(['check_role:customer'])->group(function(){
+
+        Route::get('/verify', [VerifyController::class, 'index'])->name('verify');
+        Route::post('/verify', [VerifyController::class, 'store'])->name('verify.store');
+
+
+        Route::middleware(['check_status'])->group(function(){
+            Route::get('/customer', [CustomerController::class, 'index'])->name('customer');
+        });
+
+    });
+
 });
 
-Route::middleware(['auth', 'check_role:customer'])->group(function() {
-    Route::get('/customer', [CustomerController::class, 'index'])->name('customer');
-});

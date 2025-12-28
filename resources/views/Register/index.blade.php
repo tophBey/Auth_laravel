@@ -74,14 +74,14 @@
             @csrf
 
             <div class="input-group mb-3">
-              <input type="text" name="name" class="form-control" placeholder="name" />
+              <input type="text" name="name" class="form-control" placeholder="name" value="{{ old('name') }}" />
               <div class="input-group-text"><span class="bi bi-account"></span></div>
             </div>
             @error('name')
               <small class="text-danger">{{ $message }}</small>
           @enderror
             <div class="input-group mb-3">
-              <input type="email" name="email" class="form-control" placeholder="Email" />
+              <input type="email" name="email" class="form-control" placeholder="Email" value="{{ old('email') }}"/>
               <div class="input-group-text"><span class="bi bi-envelope"></span></div>
             </div>
             @error('email')

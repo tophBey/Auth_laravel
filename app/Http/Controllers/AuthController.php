@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -52,6 +53,17 @@ class AuthController extends Controller
             'password' => 'required|min:8',
             'confirm_password' => 'required|min:8|same:password',
         ]);
+
+        $request['status'] = "verify";
+        $request['role'] = "customer";
+
+        // dd($request->all());
+       $user =  User::create($request->all());
+
+        Auth::login($user);
+        // return redirect()->route('login')->with('login', 'create akun succes, now login');
+
+        return redirect('/customer');
     }
 
     public function logout(Request $request){

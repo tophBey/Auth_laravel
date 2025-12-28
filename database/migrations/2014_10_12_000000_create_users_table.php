@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->enum('status',['veriry', 'active', 'banned']);
+            $table->enum('status',['verify', 'active', 'banned']);
             $table->enum('role',['admin', 'customer', 'staff']);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
