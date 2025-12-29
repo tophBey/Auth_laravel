@@ -6,6 +6,7 @@ use App\Http\Controllers\VerifyController;
 use App\Models\Verification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,9 @@ Route::middleware(['guest'])->group(function(){
     Route::post('/login', [AuthController::class, 'store'])->name('login.store');
     Route::get('/register', [AuthController::class, 'register'])->name('register');
     Route::post('/register', [AuthController::class, 'registerStore'])->name('register.store');
+
+    Route::get('/auth-google-redirect', [AuthController::class, 'google_redirect'])->name('google.redirect');
+    Route::get('/auth-google-callback', [AuthController::class, 'google_callback'])->name('google.callback');
 });
 
 
@@ -41,9 +45,6 @@ Route::middleware(['auth'])->group(function() {
     Route::middleware(['check_role:admin,staff'])->group(function(){
         Route::get('/dashboard', [AuthController::class, 'dashboard']);
     });
-
-
-
 
     Route::middleware(['check_role:customer'])->group(function(){
 

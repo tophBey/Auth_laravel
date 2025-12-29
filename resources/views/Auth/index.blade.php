@@ -112,7 +112,7 @@
             <a href="#" class="btn btn-primary">
               <i class="bi bi-facebook me-2"></i> Sign in using Facebook
             </a>
-            <a href="#" class="btn btn-danger">
+            <a href="{{ route('google.redirect') }}" class="btn btn-danger">
               <i class="bi bi-google me-2"></i> Sign in using Google
             </a>
           </div>

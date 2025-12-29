@@ -73,7 +73,6 @@ class VerifyController extends Controller
             $verify->update(([
                 'status' => 'invalid'
             ]));
-
             return redirect('/verify')->with('otp', 'OTP Invalid');
         }
 
