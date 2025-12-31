@@ -70,7 +70,7 @@
           <form action="{{ route('verify.store') }}" method="post">
             @csrf
             <div class="input-group mb-3">
-              <input type="hidden" name="type" class="form-control"  value="register"/>
+              <input type="hidden" name="type" class="form-control"  value="{{ $type }}"/>
               <div class="input-group-text"><span class="bi bi-envelope"></span></div>
               <button type="submit" class="btn btn-primary">Verifikasi to your Email</button>
             </div>
